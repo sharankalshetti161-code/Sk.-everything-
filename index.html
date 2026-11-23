@@ -9,79 +9,103 @@
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b0e17;
-  color:white;
-  padding:18px;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#0b0e17;
+ color:white;
+ padding:18px;
 }
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:10px 0 22px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin:10px 0 22px;
 }
 .logo{font-size:24px;font-weight:bold;color:#9b8cff}
 .tag{color:#9ba3b8;font-size:12px;margin-top:5px}
 .search{
-  width:100%;
-  padding:15px;
-  border-radius:14px;
-  border:1px solid #30364a;
-  background:#171c29;
-  color:white;
-  outline:none;
-  margin-bottom:20px;
+ width:100%;
+ padding:15px;
+ border-radius:14px;
+ border:1px solid #30364a;
+ background:#171c29;
+ color:white;
+ outline:none;
+ margin-bottom:20px;
 }
 h3{margin:20px 0 12px}
 .grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
 }
 .card{
-  padding:19px 14px;
-  border-radius:18px;
-  background:#181e2d;
-  border:1px solid #292f41;
-  cursor:pointer;
-  transition:.2s;
+ padding:18px 14px;
+ border-radius:18px;
+ background:#181e2d;
+ border:1px solid #292f41;
+ cursor:pointer;
 }
-.card:active{transform:scale(.97)}
+.card:active{transform:scale(.98)}
 .card .emoji{font-size:27px}
 .card h3{margin:10px 0 6px;font-size:16px}
 .card p{margin:0;color:#aab3c5;font-size:12px}
+.panel{
+ background:#181e2d;
+ border:1px solid #292f41;
+ border-radius:18px;
+ padding:17px;
+ margin-top:20px;
+}
+button{
+ border:0;
+ color:white;
+ background:#7162e8;
+ border-radius:12px;
+ padding:12px 15px;
+ cursor:pointer;
+ margin:4px 2px;
+}
+.secondary{background:#292f41}
+.category{
+ display:flex;
+ flex-wrap:wrap;
+ gap:5px;
+ margin:12px 0;
+}
+.caption-item{
+ background:#202738;
+ border:1px solid #30384c;
+ padding:12px;
+ border-radius:13px;
+ margin:10px 0;
+}
+.caption-text{line-height:1.6}
+.small{font-size:12px;color:#aab3c5}
 .daily{
-  background:linear-gradient(135deg,#31285b,#182b49);
-  padding:20px;
-  border-radius:20px;
-  margin-top:20px;
+ background:linear-gradient(135deg,#31285b,#182b49);
+ padding:20px;
+ border-radius:20px;
+ margin-top:20px;
 }
 .daily p{color:#d6d9ed;line-height:1.6}
-button{
-  border:0;
-  color:white;
-  background:#7162e8;
-  border-radius:12px;
-  padding:12px;
-  cursor:pointer;
-}
-#result{
-  margin-top:15px;
-  background:#181e2d;
-  border-radius:15px;
-  padding:15px;
-  line-height:1.6;
-  display:none;
-}
 .nav{
-  display:flex;
-  justify-content:space-around;
-  margin-top:25px;
-  padding:14px 4px;
-  border-top:1px solid #272d3b;
-  color:#adb6c8;
-  font-size:12px;
+ display:flex;
+ justify-content:space-around;
+ margin-top:25px;
+ padding:14px 4px;
+ border-top:1px solid #272d3b;
+ color:#adb6c8;
+ font-size:12px;
+}
+input,textarea{
+ width:100%;
+ background:#111724;
+ border:1px solid #30364a;
+ color:white;
+ border-radius:12px;
+ padding:14px;
+ margin:8px 0;
 }
 </style>
 </head>
@@ -89,11 +113,11 @@ button{
 <body>
 
 <header>
-  <div>
-    <div class="logo">SK EVERYTHING ✦</div>
-    <div class="tag">Everything you need, every day.</div>
-  </div>
-  <div>⚡</div>
+ <div>
+  <div class="logo">SK EVERYTHING ✦</div>
+  <div class="tag">Everything you need, every day.</div>
+ </div>
+ <div>⚡</div>
 </header>
 
 <input class="search" id="search"
@@ -104,115 +128,229 @@ placeholder="🔍 Search anything..." oninput="searchTools()">
 <div class="grid" id="grid">
 
 <div class="card" onclick="openTool('AI Chat')">
-<div class="emoji">🤖</div>
-<h3>AI Chat</h3>
-<p>Ask anything</p>
+ <div class="emoji">🤖</div>
+ <h3>AI Chat</h3>
+ <p>Ask anything</p>
 </div>
 
 <div class="card" onclick="openTool('Captions')">
-<div class="emoji">✍️</div>
-<h3>Captions</h3>
-<p>Bio & Status</p>
+ <div class="emoji">✍️</div>
+ <h3>Captions</h3>
+ <p>Bio & Status</p>
 </div>
 
 <div class="card" onclick="openTool('QR Maker')">
-<div class="emoji">📱</div>
-<h3>QR Maker</h3>
-<p>Create QR codes</p>
+ <div class="emoji">📱</div>
+ <h3>QR Maker</h3>
+ <p>Create QR codes</p>
 </div>
 
 <div class="card" onclick="openTool('Text Tools')">
-<div class="emoji">🧰</div>
-<h3>Text Tools</h3>
-<p>Useful text tools</p>
+ <div class="emoji">🧰</div>
+ <h3>Text Tools</h3>
+ <p>Useful text tools</p>
 </div>
 
 <div class="card" onclick="openTool('Daily Quotes')">
-<div class="emoji">🔥</div>
-<h3>Daily Quotes</h3>
-<p>Daily inspiration</p>
+ <div class="emoji">🔥</div>
+ <h3>Daily Quotes</h3>
+ <p>Daily inspiration</p>
 </div>
 
 <div class="card" onclick="openTool('Calculator')">
-<div class="emoji">🧮</div>
-<h3>Calculator</h3>
-<p>Quick calculations</p>
+ <div class="emoji">🧮</div>
+ <h3>Calculator</h3>
+ <p>Quick calculations</p>
 </div>
 
 </div>
 
-<div id="result"></div>
+<div id="result" class="panel" style="display:none"></div>
 
 <div class="daily">
-<h3>🔥 Daily Thought</h3>
-<p id="quote">Dream big. Start small. Never stop.</p>
-<button onclick="newQuote()">New Quote</button>
+ <h3>🔥 Daily Thought</h3>
+ <p id="quote">Dream big. Start small. Never stop.</p>
+ <button onclick="newQuote()">New Quote</button>
 </div>
 
 <div class="nav">
-<span>🏠 Home</span>
-<span>🤖 AI</span>
-<span>🛠️ Tools</span>
-<span>👤 Profile</span>
+ <span onclick="goHome()">🏠 Home</span>
+ <span onclick="openTool('AI Chat')">🤖 AI</span>
+ <span onclick="openTool('Text Tools')">🛠️ Tools</span>
+ <span onclick="alert('SK EVERYTHING')">👤 Profile</span>
 </div>
 
 <script>
+
+const captionData = {
+"😈 Attitude":[
+"Low-key, but never ordinary.",
+"Silent moves. Loud results.",
+"My vibe, my rules.",
+"I don't compete, I create my own lane.",
+"Not everyone deserves access to me.",
+"Confidence speaks louder than words.",
+"Rare energy. Real attitude.",
+"Built different, staying different."
+],
+"❤️ Love":[
+"Some feelings are better expressed silently.",
+"You make ordinary moments feel special.",
+"A little happiness, a lot of memories.",
+"Some people feel like home.",
+"Heart full of feelings.",
+"Simple moments, unforgettable memories."
+],
+"💔 Sad":[
+"Some days are quieter than others.",
+"Smiling outside, thinking inside.",
+"Not every feeling needs words.",
+"Some chapters end without answers.",
+"Silence has its own language.",
+"Learning to let time do its thing."
+],
+"🇮🇳 Marathi":[
+"स्वतःची ओळख स्वतः निर्माण करायची.",
+"वेळ बदलतो, माणसंही बदलतात.",
+"शांत आहे, पण हरलेलो नाही.",
+"स्वप्न मोठं, मेहनत त्याहून मोठी.",
+"आपली वाट स्वतः बनवायची.",
+"जिद्द असेल तर मार्ग नक्की मिळतो."
+],
+"📸 Instagram Bio":[
+"Creating my own story ✨",
+"Less talk. More action.",
+"Just me, being me.",
+"Dreaming • Doing • Growing",
+"Living one day at a time.",
+"Original, never a copy."
+],
+"📝 Notes":[
+"Peace over everything.",
+"Let it be. Let it go.",
+"Today is a fresh start.",
+"Keep going quietly.",
+"Protect your peace.",
+"Good things take time."
+]
+};
 
 function openTool(name){
  const box=document.getElementById("result");
  box.style.display="block";
 
  if(name==="Captions"){
- box.innerHTML=`
- <h3>✍️ Caption Ideas</h3>
- <p>Low-key, but never ordinary.</p>
- <p>Silent moves. Loud results.</p>
- <p>My vibe, my rules.</p>`;
+  showCaptions();
  }
  else if(name==="Daily Quotes"){
- newQuote();
+  newQuote();
+  box.innerHTML="<h3>🔥 Daily Quotes</h3><p>Quote वर New Quote क्लिक करून नवीन विचार वाच.</p>";
  }
  else if(name==="Calculator"){
- box.innerHTML=`
- <h3>🧮 Calculator</h3>
- <input id="calc" class="search" placeholder="Enter calculation (e.g. 25+25)">
- <button onclick="calculate()">Calculate</button>
- <p id="calcResult"></p>`;
+  box.innerHTML=`
+  <h3>🧮 Calculator</h3>
+  <input id="calcInput" placeholder="Example: 25 + 25">
+  <button onclick="calculate()">Calculate</button>
+  <p id="calcAnswer"></p>`;
+ }
+ else if(name==="Text Tools"){
+  box.innerHTML=`
+  <h3>🧰 Text Tools</h3>
+  <textarea id="textInput" placeholder="Type your text here"></textarea>
+  <button onclick="upperText()">UPPERCASE</button>
+  <button class="secondary" onclick="lowerText()">lowercase</button>
+  <button class="secondary" onclick="copyText()">Copy</button>
+  <p id="textOutput"></p>`;
  }
  else if(name==="AI Chat"){
- box.innerHTML=`
- <h3>🤖 AI Chat</h3>
- <p>AI Chat will be connected in the next update.</p>`;
+  box.innerHTML=`
+  <h3>🤖 AI Chat</h3>
+  <p>This feature is coming soon. AI will be connected in a future update.</p>`;
  }
  else if(name==="QR Maker"){
- box.innerHTML=`
- <h3>📱 QR Maker</h3>
- <p>QR Code feature will be added soon.</p>`;
- }
- else{
- box.innerHTML=`
- <h3>🧰 Text Tools</h3>
- <input id="textInput" class="search" placeholder="Type your text">
- <button onclick="convertText()">UPPERCASE</button>
- <p id="textResult"></p>`;
+  box.innerHTML=`
+  <h3>📱 QR Maker</h3>
+  <p>QR Generator will be added in the next update.</p>`;
  }
  box.scrollIntoView({behavior:"smooth"});
 }
 
+function showCaptions(){
+ let box=document.getElementById("result");
+ box.style.display="block";
+
+ box.innerHTML=`
+ <h3>✍️ SK Caption Studio</h3>
+ <p class="small">Choose your category</p>
+ <div class="category">
+ ${Object.keys(captionData).map(cat=>
+ `<button class="secondary" onclick="showCategory('${cat}')">${cat}</button>`
+ ).join("")}
+ </div>
+ <div id="captionList"></div>
+ `;
+ showCategory("😈 Attitude");
+}
+
+function showCategory(cat){
+ let list=document.getElementById("captionList");
+ if(!list)return;
+
+ list.innerHTML=captionData[cat].map((caption,i)=>`
+ <div class="caption-item">
+  <div class="caption-text">${escapeHTML(caption)}</div>
+  <button onclick="copyCaption(${JSON.stringify(caption).replace(/"/g,'&quot;')})">📋 Copy</button>
+ </div>
+ `).join("");
+}
+
+function copyCaption(text){
+ navigator.clipboard.writeText(text)
+ .then(()=>alert("Caption copied! 📋"))
+ .catch(()=>alert("Copy failed. Please select and copy manually."));
+}
+
+function escapeHTML(str){
+ return str.replace(/[&<>"']/g,m=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;',
+ '"':'&quot;',"'":'&#39;'
+ }[m]));
+}
+
 function calculate(){
+ const input=document.getElementById("calcInput").value;
+ const out=document.getElementById("calcAnswer");
+
+ if(!/^[0-9+\-*/(). %]+$/.test(input)){
+  out.innerText="Invalid calculation";
+  return;
+ }
+
  try{
-  let v=document.getElementById("calc").value;
-  if(!/^[0-9+\-*/(). %]+$/.test(v)) throw Error();
-  document.getElementById("calcResult").innerText=
-  "Answer: "+Function('"use strict";return ('+v+')')();
+  const result=Function('"use strict";return ('+input+')')();
+  if(!Number.isFinite(result))throw Error();
+  out.innerText="Answer: "+result;
  }catch(e){
-  document.getElementById("calcResult").innerText="Invalid calculation";
+  out.innerText="Invalid calculation";
  }
 }
 
-function convertText(){
+function upperText(){
  let v=document.getElementById("textInput").value;
- document.getElementById("textResult").innerText=v.toUpperCase();
+ document.getElementById("textOutput").innerText=v.toUpperCase();
+}
+
+function lowerText(){
+ let v=document.getElementById("textInput").value;
+ document.getElementById("textOutput").innerText=v.toLowerCase();
+}
+
+function copyText(){
+ let v=document.getElementById("textOutput").innerText;
+ if(!v)return;
+ navigator.clipboard.writeText(v)
+ .then(()=>alert("Copied!"))
+ .catch(()=>alert("Copy failed"));
 }
 
 const quotes=[
@@ -221,7 +359,9 @@ const quotes=[
 "Stay focused. Your time will come.",
 "Be original. The world has enough copies.",
 "Small progress is still progress.",
-"Work quietly. Let success speak."
+"Work quietly. Let success speak.",
+"स्वप्न मोठं ठेवा आणि मेहनत सुरू ठेवा.",
+"आजचा प्रयत्न उद्याचं यश बनू शकतो."
 ];
 
 function newQuote(){
@@ -231,13 +371,18 @@ function newQuote(){
 
 function searchTools(){
  let v=document.getElementById("search").value.toLowerCase();
+
  document.querySelectorAll(".card").forEach(card=>{
  card.style.display=card.innerText.toLowerCase().includes(v)
  ? "block":"none";
  });
 }
 
+function goHome(){
+ document.getElementById("result").style.display="none";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
 </script>
 </body>
 </html>
-
