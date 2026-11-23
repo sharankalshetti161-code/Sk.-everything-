@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK EVERYTHING</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b0e17;
+  color:white;
+  padding:18px;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:10px 0 22px;
+}
+.logo{font-size:24px;font-weight:bold;color:#9b8cff}
+.tag{color:#9ba3b8;font-size:12px;margin-top:5px}
+.search{
+  width:100%;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid #30364a;
+  background:#171c29;
+  color:white;
+  outline:none;
+  margin-bottom:20px;
+}
+h3{margin:20px 0 12px}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.card{
+  padding:19px 14px;
+  border-radius:18px;
+  background:#181e2d;
+  border:1px solid #292f41;
+  cursor:pointer;
+  transition:.2s;
+}
+.card:active{transform:scale(.97)}
+.card .emoji{font-size:27px}
+.card h3{margin:10px 0 6px;font-size:16px}
+.card p{margin:0;color:#aab3c5;font-size:12px}
+.daily{
+  background:linear-gradient(135deg,#31285b,#182b49);
+  padding:20px;
+  border-radius:20px;
+  margin-top:20px;
+}
+.daily p{color:#d6d9ed;line-height:1.6}
+button{
+  border:0;
+  color:white;
+  background:#7162e8;
+  border-radius:12px;
+  padding:12px;
+  cursor:pointer;
+}
+#result{
+  margin-top:15px;
+  background:#181e2d;
+  border-radius:15px;
+  padding:15px;
+  line-height:1.6;
+  display:none;
+}
+.nav{
+  display:flex;
+  justify-content:space-around;
+  margin-top:25px;
+  padding:14px 4px;
+  border-top:1px solid #272d3b;
+  color:#adb6c8;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <div class="logo">SK EVERYTHING ✦</div>
+    <div class="tag">Everything you need, every day.</div>
+  </div>
+  <div>⚡</div>
+</header>
+
+<input class="search" id="search"
+placeholder="🔍 Search anything..." oninput="searchTools()">
+
+<h3>Explore Everything</h3>
+
+<div class="grid" id="grid">
+
+<div class="card" onclick="openTool('AI Chat')">
+<div class="emoji">🤖</div>
+<h3>AI Chat</h3>
+<p>Ask anything</p>
+</div>
+
+<div class="card" onclick="openTool('Captions')">
+<div class="emoji">✍️</div>
+<h3>Captions</h3>
+<p>Bio & Status</p>
+</div>
+
+<div class="card" onclick="openTool('QR Maker')">
+<div class="emoji">📱</div>
+<h3>QR Maker</h3>
+<p>Create QR codes</p>
+</div>
+
+<div class="card" onclick="openTool('Text Tools')">
+<div class="emoji">🧰</div>
+<h3>Text Tools</h3>
+<p>Useful text tools</p>
+</div>
+
+<div class="card" onclick="openTool('Daily Quotes')">
+<div class="emoji">🔥</div>
+<h3>Daily Quotes</h3>
+<p>Daily inspiration</p>
+</div>
+
+<div class="card" onclick="openTool('Calculator')">
+<div class="emoji">🧮</div>
+<h3>Calculator</h3>
+<p>Quick calculations</p>
+</div>
+
+</div>
+
+<div id="result"></div>
+
+<div class="daily">
+<h3>🔥 Daily Thought</h3>
+<p id="quote">Dream big. Start small. Never stop.</p>
+<button onclick="newQuote()">New Quote</button>
+</div>
+
+<div class="nav">
+<span>🏠 Home</span>
+<span>🤖 AI</span>
+<span>🛠️ Tools</span>
+<span>👤 Profile</span>
+</div>
+
+<script>
+
+function openTool(name){
+ const box=document.getElementById("result");
+ box.style.display="block";
+
+ if(name==="Captions"){
+ box.innerHTML=`
+ <h3>✍️ Caption Ideas</h3>
+ <p>Low-key, but never ordinary.</p>
+ <p>Silent moves. Loud results.</p>
+ <p>My vibe, my rules.</p>`;
+ }
+ else if(name==="Daily Quotes"){
+ newQuote();
+ }
+ else if(name==="Calculator"){
+ box.innerHTML=`
+ <h3>🧮 Calculator</h3>
+ <input id="calc" class="search" placeholder="Enter calculation (e.g. 25+25)">
+ <button onclick="calculate()">Calculate</button>
+ <p id="calcResult"></p>`;
+ }
+ else if(name==="AI Chat"){
+ box.innerHTML=`
+ <h3>🤖 AI Chat</h3>
+ <p>AI Chat will be connected in the next update.</p>`;
+ }
+ else if(name==="QR Maker"){
+ box.innerHTML=`
+ <h3>📱 QR Maker</h3>
+ <p>QR Code feature will be added soon.</p>`;
+ }
+ else{
+ box.innerHTML=`
+ <h3>🧰 Text Tools</h3>
+ <input id="textInput" class="search" placeholder="Type your text">
+ <button onclick="convertText()">UPPERCASE</button>
+ <p id="textResult"></p>`;
+ }
+ box.scrollIntoView({behavior:"smooth"});
+}
+
+function calculate(){
+ try{
+  let v=document.getElementById("calc").value;
+  if(!/^[0-9+\-*/(). %]+$/.test(v)) throw Error();
+  document.getElementById("calcResult").innerText=
+  "Answer: "+Function('"use strict";return ('+v+')')();
+ }catch(e){
+  document.getElementById("calcResult").innerText="Invalid calculation";
+ }
+}
+
+function convertText(){
+ let v=document.getElementById("textInput").value;
+ document.getElementById("textResult").innerText=v.toUpperCase();
+}
+
+const quotes=[
+"Dream big. Start small. Never stop.",
+"Your future is created by what you do today.",
+"Stay focused. Your time will come.",
+"Be original. The world has enough copies.",
+"Small progress is still progress.",
+"Work quietly. Let success speak."
+];
+
+function newQuote(){
+ const q=quotes[Math.floor(Math.random()*quotes.length)];
+ document.getElementById("quote").innerText=q;
+}
+
+function searchTools(){
+ let v=document.getElementById("search").value.toLowerCase();
+ document.querySelectorAll(".card").forEach(card=>{
+ card.style.display=card.innerText.toLowerCase().includes(v)
+ ? "block":"none";
+ });
+}
+
+</script>
+</body>
+</html>
+
